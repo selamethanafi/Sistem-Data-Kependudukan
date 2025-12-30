@@ -1,4 +1,6 @@
 <?php
+define('INDEX', true);
+define('APP_ROOT', __DIR__);
     //Mulai Sesion
     session_start();
     if (isset($_SESSION["ses_username"])==""){
@@ -13,6 +15,7 @@
 
     //KONEKSI DB
     include "inc/koneksi.php";
+    include "inc/fungsi.php";
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +37,8 @@
 	<link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
 	<!-- overlayScrollbars -->
 	<link rel="stylesheet" href="dist/css/adminlte.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
 	<!-- Select2 -->
 	<link rel="stylesheet" href="plugins/select2/css/select2.min.css">
 	<link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
@@ -64,7 +69,7 @@
 				<li class="nav-item d-none d-sm-inline-block">
 					<a href="index.php" class="nav-link">
 						<font color="white">
-							<b>SISTEM INFORMASI DATA KEPENDUDUKAN DESA TAMANTIRTO</b>
+							<b>SISTEM INFORMASI DATA KEPENDUDUKAN RT 21B RW 4 PERUMAHAN GRAHA TENGARAN ASRI DESA TENGARAN</b>
 						</font>
 					</a>
 				</li>
@@ -78,7 +83,7 @@
 			<!-- Brand Logo -->
 			<a href="index.php" class="brand-link">
 				<img src="dist/img/izin.png" alt="AdminLTE Logo" class="brand-image" style="opacity: .8">
-				<span class="brand-text"> SIDAK TAMANTIRTO</span>
+				<span class="brand-text"> SIDAK GTA</span>
 			</a>
 
 			<!-- Sidebar -->
@@ -237,6 +242,12 @@
 									</a>
 								</li>
 								<li class="nav-item">
+									<a href="?page=daftar-penghuni" class="nav-link">
+										<i class="nav-icon far fa-circle text-warning"></i>
+										<p> Daftar Penghuni</p>
+									</a>
+								</li>
+								<li class="nav-item">
 									<a href="#" class="nav-link">
 										<i class="nav-icon far fa-circle text-warning"></i>
 										<p>Data Kartu Keluarga</p>
@@ -281,7 +292,7 @@
 						</li>
 
 						<?php
-          				} elseif($data_level=="Kaur Pemerintah"){
+          				} elseif($data_level=="Operator"){
           				?>
 
 						<li class="nav-item">
@@ -414,6 +425,12 @@
 									</a>
 								</li>
 								<li class="nav-item">
+									<a href="?page=daftar-penghuni" class="nav-link">
+										<i class="nav-icon far fa-circle text-warning"></i>
+										<p> Daftar Penghuni</p>
+									</a>
+								</li>
+								<li class="nav-item">
 									<a href="#" class="nav-link">
 										<i class="nav-icon far fa-circle text-warning"></i>
 										<p>Data Kartu Keluarga</p>
@@ -450,6 +467,25 @@
 
 						<?php
 							}
+					     elseif($data_level=="warga")
+					     {?>
+					     <li class="nav-item">
+							<a href="index.php" class="nav-link">
+								<i class="nav-icon fas fa-tachometer-alt"></i>
+								<p>
+									Dashboard
+								</p>
+							</a>
+						</li>
+						<li class="nav-item">
+									<a href="?page=keluarga" class="nav-link">
+										<i class="nav-icon far fa-circle text-warning"></i>
+										<p>Data Kartu Keluarga</p>
+									</a>
+								</li>
+						<?php
+					         
+					     }
 						?>
 
 						<li class="nav-item">
@@ -508,6 +544,9 @@
 				case 'edit-kartu':
 					include "admin/kartu/edit_kartu.php";
 					break;
+				case 'view-kartu':
+					include "admin/kartu/view_kartu.php";
+					break;					
 				case 'anggota':
 					include "admin/kartu/anggota.php";
 					break;
@@ -607,9 +646,15 @@
 				case 'suket-pindah':
 					include "surat/suket_pindah.php";
 					break;
-				
-
-          
+				case 'keluarga':
+					include "warga/keluarga.php";
+					break;
+				case 'view-kel':
+					include "warga/view_keluarga.php";
+					break;
+                case 'daftar-penghuni':
+					include "admin/rumah/daftar_penghuni.php";
+					break;
               //default
               default:
                   echo "<center><h1> ERROR !</h1></center>";
@@ -620,7 +665,7 @@
           if($data_level=="Administrator"){
               include "home/admin.php";
               }
-          elseif($data_level=="Kaur Pemerintah"){
+          elseif($data_level=="Operator"){
               include "home/kaur.php";
               }
           }
@@ -698,6 +743,19 @@
 			})
 		})
 	</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.id.min.js"></script>
+
+<script>
+$(function () {
+    $('#tgl_lh').datepicker({
+        format: 'dd/mm/yyyy',
+        language: 'id',
+        autoclose: true,
+        todayHighlight: true
+    });
+});
+</script>
 
 </body>
 

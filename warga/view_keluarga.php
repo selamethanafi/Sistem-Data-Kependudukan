@@ -1,13 +1,21 @@
 <?php require_once APP_ROOT . '/protect.php';
-allow_level(['Administrator']);
+allow_level(['warga']);
 ?>
 
-<?php
 
+<?php
+$id_kk = $_SESSION['ses_id'];
     if(isset($_GET['kode'])){
         $sql_cek = "SELECT * from tb_pdd where id_pend ='".$_GET['kode']."'";
         $query_cek = mysqli_query($koneksi, $sql_cek);
         $data_cek = mysqli_fetch_array($query_cek,MYSQLI_BOTH);
+        $id_pend = $_GET['kode'];
+        $ta = mysqli_query($koneksi,"SELECT * FROM `tb_anggota` WHERE `id_kk` = '$id_kk' and `id_pend` = '$id_pend'");
+        if(mysqli_num_rows($ta) == 0)
+        {
+            die('bukan anggota keluarga');
+        }
+
     }
 ?>
 
@@ -58,14 +66,6 @@ allow_level(['Administrator']);
 				</tr>
 				<tr>
 					<td style="width: 150px">
-						<b>Alamat</b>
-					</td>
-					<td>:
-						
-					</td>
-				</tr>
-				<tr>
-					<td style="width: 150px">
 						<b>Agama</b>
 					</td>
 					<td>:
@@ -93,7 +93,7 @@ allow_level(['Administrator']);
 			</tbody>
 		</table>
 		<div class="card-footer">
-			<a href="?page=data-pend" class="btn btn-warning">Kembali</a>
+			<a href="?page=keluarga" class="btn btn-warning">Kembali</a>
 		</div>
 	</div>
 </div>

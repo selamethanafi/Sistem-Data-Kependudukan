@@ -1,3 +1,7 @@
+<?php require_once APP_ROOT . '/protect.php';
+allow_level(['Administrator']);
+?>
+
 <?php
 if(isset($_GET['kode'])){
             $sql_hapus = "DELETE FROM tb_kk WHERE id_kk='".$_GET['kode']."'";

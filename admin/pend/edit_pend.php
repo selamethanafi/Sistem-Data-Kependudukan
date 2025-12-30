@@ -1,3 +1,6 @@
+<?php require_once APP_ROOT . '/protect.php';
+allow_level(['Administrator']);
+?>
 <?php
 
     if(isset($_GET['kode'])){
@@ -45,8 +48,23 @@
 					<input type="text" class="form-control" id="tempat_lh" name="tempat_lh" value="<?php echo $data_cek['tempat_lh']; ?>"
 					/>
 				</div>
-				<div class="col-sm-3">
-					<input type="date" class="form-control" id="tgl_lh" name="tgl_lh" value="<?php echo $data_cek['tgl_lh']; ?>"
+				<?php
+				$tanggal = substr($data_cek['tgl_lh'],8,2).'/'.substr($data_cek['tgl_lh'],5,2).'/'.substr($data_cek['tgl_lh'],0,4); 
+				?>
+					<div class="col-sm-3">
+					<input type="text"
+       class="form-control"
+       id="tgl_lh"
+       name="tgl_lh"
+       placeholder="dd/mm/yyyy"
+       autocomplete="off" value="<?php echo $tanggal;?>"
+       required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">HP</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="hp" name="hp" value="<?php echo $data_cek['hp']; ?>"
 					/>
 				</div>
 			</div>
@@ -65,26 +83,6 @@
                 else echo "<option value='PR'>PR</option>";
             ?>
 					</select>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Desa</label>
-				<div class="col-sm-6">
-					<input type="text" class="form-control" id="desa" name="desa" value="<?php echo $data_cek['desa']; ?>"
-					/>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">RT/RW</label>
-				<div class="col-sm-3">
-					<input type="text" class="form-control" id="rt" name="rt" value="<?php echo $data_cek['rt']; ?>"
-					/>
-				</div>
-				<div class="col-sm-3">
-					<input type="text" class="form-control" id="rw" name="rw" value="<?php echo $data_cek['rw']; ?>"
-					/>
 				</div>
 			</div>
 
@@ -113,6 +111,7 @@
                 else echo "<option value='Cerai Mati'>Cerai Mati</option>";
 
                 if ($data_cek['kawin'] == "Cerai Hidup") echo "<option value='Cerai Hidup' selected>Cerai Hidup</option>";
+                if ($data_cek['kawin'] == "Cerai Tercatat") echo "<option value='Cerai Tercatat' selected>Cerai Tercatat</option>";
                 else echo "<option value='Cerai Hidup'>Cerai Hidup</option>";
             ?>
 					</select>
@@ -138,15 +137,21 @@
 <?php
 
     if (isset ($_POST['Ubah'])){
+         $tgl_input = trim($_POST['tgl_lh']); // 21/09/2008
+    $date = DateTime::createFromFormat('d/m/Y', $tgl_input);
+    $errors = DateTime::getLastErrors();
+    if ($date === false || $errors['error_count'] > 0) {
+        die("INVALID DATE FORMAT");
+    }
+
+$tgl_db = $date->format('Y-m-d'); // 2008-09-21
     $sql_ubah = "UPDATE tb_pdd SET 
 		nik='".$_POST['nik']."',
 		nama='".$_POST['nama']."',
 		tempat_lh='".$_POST['tempat_lh']."',
-		tgl_lh='".$_POST['tgl_lh']."',
+		tgl_lh='".$tgl_db."',
 		jekel='".$_POST['jekel']."',
-		desa='".$_POST['desa']."',
-		rt='".$_POST['rt']."',
-		rw='".$_POST['rw']."',
+		hp='".$_POST['hp']."',
 		agama='".$_POST['agama']."',
 		kawin='".$_POST['kawin']."',
 		pekerjaan='".$_POST['pekerjaan']."'

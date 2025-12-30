@@ -1,3 +1,5 @@
+<?php require_once __DIR__ . '/../protect.php'; ?>
+
 <?php
 
     if(isset($_GET['kode'])){

@@ -1,3 +1,7 @@
+<?php require_once APP_ROOT . '/protect.php';
+allow_level(['Administrator']);
+?>
+
 <div class="card card-info">
 	<div class="card-header">
 		<h3 class="card-title">

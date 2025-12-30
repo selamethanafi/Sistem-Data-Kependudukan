@@ -1,3 +1,7 @@
+<?php require_once APP_ROOT . '/protect.php';
+allow_level(['Administrator']);
+?>
+
 <?php
 
     if(isset($_GET['kode'])){
@@ -52,13 +56,18 @@
                         $query = "select * from tb_pdd where status='Ada'";
                         $hasil = mysqli_query($koneksi, $query);
                         while ($row = mysqli_fetch_array($hasil)) {
-                        ?>
-						<option value="<?php echo $row['id_pend'] ?>">
-							<?php echo $row['nik'] ?>
-							-
-							<?php echo $row['nama'] ?>
-						</option>
-						<?php
+                            $id_pend = $row['id_pend'];
+                            $q2 = "SELECT * FROM `tb_anggota` WHERE `id_pend` = '$id_pend'";
+                            $h2 = mysqli_query($koneksi, $q2);
+                            $ada = mysqli_num_rows($h2);
+                            if($ada == 0)
+                            {
+                                ?>
+	        					<option value="<?php echo $row['id_pend'] ?>">
+		    					<?php echo $row['nik'] ?> <?php echo $row['nama'] ?>
+        						</option>
+        						<?php
+                            }
                         }
                         ?>
 					</select>

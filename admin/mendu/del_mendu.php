@@ -1,3 +1,6 @@
+<?php require_once APP_ROOT . '/protect.php';
+allow_level(['Administrator']);
+?>
 <?php
 if(isset($_GET['kode'])){
             $sql_hapus = "DELETE FROM tb_pdd WHERE id_pend='".$_GET['kode']."'";

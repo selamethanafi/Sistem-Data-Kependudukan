@@ -1,3 +1,6 @@
+<?php require_once APP_ROOT . '/protect.php';
+allow_level(['Administrator']);
+?>
 <div class="card card-primary">
 	<div class="card-header">
 		<h3 class="card-title">
@@ -19,14 +22,12 @@
 					<input type="text" class="form-control" id="kepala" name="kepala" placeholder="Kpl Keluarga" required>
 				</div>
 			</div>
-
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Desa</label>
+				<label class="col-sm-2 col-form-label">Nomor Rumah</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="desa" name="desa" placeholder="Desa" required>
+					<input type="text" class="form-control" id="nomor" name="nomor" placeholder="Nomor Rumah" required>
 				</div>
 			</div>
-
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">RT/RW</label>
 				<div class="col-sm-3">
@@ -34,6 +35,13 @@
 				</div>
 				<div class="col-sm-3">
 					<input type="text" class="form-control" id="rw" name="rw" placeholder="RW" required>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Desa</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="desa" name="desa" placeholder="Desa" required>
 				</div>
 			</div>
 
@@ -57,7 +65,40 @@
 					<input type="text" class="form-control" id="prov" name="prov" placeholder="Provinsi" required>
 				</div>
 			</div>
-
+           	<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Pemilik</label>
+				<div class="col-sm-3">
+					<select name="pemilik" id="pemilik" class="form-control">
+						<option>- Pilih -</option>
+						<option value="1">Ya</option>
+						<option value="0">Tidak</option>
+					</select>
+				</div>
+			</div>
+				<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Apakah tinggal di sini</label>
+				<div class="col-sm-3">
+					<select name="tinggal" id="tinggal" class="form-control">
+						<option>- Pilih -</option>
+						<option value="1">Ya</option>
+						<option value="0">Tidak</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">HP</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="hp" name="hp" placeholder ="6281234567890"
+					/>
+				</div>
+			</div>	
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Chat _Id</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="chat_id" name="chat_id" placeholder ="6281234567890@lid"
+					/>
+				</div>
+			</div>	
 		</div>
 		<div class="card-footer">
 			<input type="submit" name="Simpan" value="Simpan" class="btn btn-info">
@@ -69,8 +110,7 @@
 <?php
 
     if (isset ($_POST['Simpan'])){
-    //mulai proses simpan data
-        $sql_simpan = "INSERT INTO tb_kk (no_kk, kepala, desa, rt, rw, kec, kab, prov) VALUES (
+        $sql_simpan = "INSERT INTO tb_kk (no_kk, kepala, desa, rt, rw, kec, kab, prov, nomor, hp, pemilik, tinggal, chat_id) VALUES (
             '".$_POST['no_kk']."',
             '".$_POST['kepala']."',
             '".$_POST['desa']."',
@@ -78,7 +118,12 @@
             '".$_POST['rw']."',
             '".$_POST['kec']."',
             '".$_POST['kab']."',
-            '".$_POST['prov']."')";
+            '".$_POST['prov']."',
+            '".$_POST['nomor']."',
+            '".$_POST['hp']."',
+            '".$_POST['pemilik']."',
+            '".$_POST['tinggal']."',            
+            '".$_POST['chat_id']."')";
         $query_simpan = mysqli_query($koneksi, $sql_simpan);
         mysqli_close($koneksi);
 

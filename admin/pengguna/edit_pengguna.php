@@ -1,3 +1,7 @@
+<?php require_once APP_ROOT . '/protect.php';
+allow_level(['Administrator']);
+?>
+
 <?php
 
     if(isset($_GET['kode'])){
@@ -53,8 +57,8 @@
                 if ($data_cek['level'] == "Administrator") echo "<option value='Administrator' selected>Administrator</option>";
                 else echo "<option value='Administrator'>Administrator</option>";
 
-                if ($data_cek['level'] == "Kaur Pemerintah") echo "<option value='Kaur Pemerintah' selected>Kaur Pemerintah</option>";
-                else echo "<option value='Kaur Pemerintah'>Kaur Pemerintah</option>";
+                if ($data_cek['level'] == "Operator") echo "<option value='Operator' selected>Operator</option>";
+                else echo "<option value='Operator'>Operator</option>";
             ?>
 					</select>
 				</div>

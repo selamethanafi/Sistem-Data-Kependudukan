@@ -1,3 +1,5 @@
+<?php require_once __DIR__ . '/../protect.php'; ?>
+
 <?php
 if(isset($_GET['kode'])){
             $sql_hapus = "DELETE FROM tb_pdd WHERE id_pend='".$_GET['kode']."'";

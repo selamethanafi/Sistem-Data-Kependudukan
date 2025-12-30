@@ -1,3 +1,7 @@
+<?php require_once APP_ROOT . '/protect.php';
+allow_level(['Administrator']);
+?>
+
 <?php
 
     if(isset($_GET['kode'])){
@@ -35,6 +39,34 @@
 				<label class="col-sm-2 col-form-label">Kpl Keluarga</label>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" id="kepala" name="kepala" value="<?php echo $data_cek['kepala']; ?>"
+					 required>
+				</div>
+			</div>
+				<div class="form-group row">
+				<label class="col-sm-2 col-form-label">HP</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="hp" name="hp" value="<?php echo $data_cek['hp']; ?>"
+					 required>
+				</div>
+			</div>
+        <div class="form-group row">
+				<label class="col-sm-2 col-form-label">Chat Id</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="chat_id" name="chat_id" value="<?php echo $data_cek['chat_id']; ?>" placeholder ="6281234567890@lid"
+					/>
+				</div>
+			</div>				
+        	<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Nomor Rumah</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="nomor" name="nomor" value="<?php echo $data_cek['nomor']; ?>"
+					 required>
+				</div>
+			</div>
+        	<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Mulai Tinggal di sini</label>
+				<div class="col-sm-6">
+					<input type="date" class="form-control" id="mulai" name="mulai" value="<?php echo $data_cek['mulai']; ?>"
 					 required>
 				</div>
 			</div>
@@ -82,9 +114,42 @@
 					 required>
 				</div>
 			</div>
-
-
-		</div>
+           	<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Pemilik</label>
+				<div class="col-sm-3">
+					<select name="pemilik" id="pemilik" class="form-control">
+					    <?php
+					    if($data_cek['pemilik'] == '1')
+					    {
+					        echo '<option value="1">Ya</option>
+						<option value="0">Tidak</option>';
+					    }
+					    else
+					     {
+					        echo '<option value="0">Tidak</option><option value="1">Ya</option>';
+					    }
+					    ?>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Apakah tinggal di sini</label>
+				<div class="col-sm-3">
+					<select name="tinggal" id="tinggal" class="form-control">
+					 <?php
+					    if($data_cek['tinggal'] == '1')
+					    {
+					        echo '<option value="1">Ya</option>
+						<option value="0">Tidak</option>';
+					    }
+					    else
+					     {
+					        echo '<option value="0">Tidak</option><option value="1">Ya</option>';
+					    }
+					    ?>
+					</select>
+				</div>
+			</div>
 		<div class="card-footer">
 			<input type="submit" name="Ubah" value="Simpan" class="btn btn-success">
 			<a href="?page=data-kartu" title="Kembali" class="btn btn-secondary">Batal</a>
@@ -101,11 +166,17 @@
     no_kk='".$_POST['no_kk']."',
     kepala='".$_POST['kepala']."',
     desa='".$_POST['desa']."',
+    nomor='".$_POST['nomor']."',
+    mulai='".$_POST['mulai']."',
+    hp='".$_POST['hp']."',
     rt='".$_POST['rt']."',
     rw='".$_POST['rw']."',
     kec='".$_POST['kec']."',
     kab='".$_POST['kab']."',
-    prov='".$_POST['prov']."'
+    prov='".$_POST['prov']."',
+    pemilik='".$_POST['pemilik']."',
+    tinggal='".$_POST['tinggal']."',    
+    chat_id='".$_POST['chat_id']."'
     WHERE id_kk='".$_POST['id_kk']."'";
     $query_ubah = mysqli_query($koneksi, $sql_ubah);
     mysqli_close($koneksi);

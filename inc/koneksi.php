@@ -1,2 +1,2 @@
 <?php
-$koneksi = new mysqli ("localhost","super","95EfR6wfFf^!","sigta");
+$koneksi = new mysqli ("localhost","sigta","PrBRpAE68addZRJS","sigta");

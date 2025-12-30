@@ -1,3 +1,5 @@
+<?php require_once __DIR__ . '/../protect.php'; ?>
+
 <div class="card card-primary">
 	<div class="card-header">
 		<h3 class="card-title">
@@ -33,7 +35,7 @@
 					<select name="level" id="level" class="form-control">
 						<option>- Pilih -</option>
 						<option>Administrator</option>
-						<option>Kaur Pemerintah</option>
+						<option>Operator</option>
 					</select>
 				</div>
 			</div>

@@ -1,3 +1,5 @@
+<?php require_once __DIR__ . '/../protect.php'; ?>
+
 <div class="card card-info">
 	<div class="card-header">
 		<h3 class="card-title">

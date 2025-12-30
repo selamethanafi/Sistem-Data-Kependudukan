@@ -1,3 +1,5 @@
+<?php require_once __DIR__ . '/../protect.php'; ?>
+
 <?php
 if(isset($_GET['kode'])){
             $sql_hapus = "DELETE FROM tb_pengguna WHERE id_pengguna='".$_GET['kode']."'";
